@@ -1,0 +1,7 @@
+{
+  "env": {
+    "CLOUD_NAME": "@pholog-cloudinary-cloud-name",
+    "CLOUDINARY_API_KEY": "@pholog-cloudinary-api-key",
+    "CLOUDINARY_API_SECRET": "@pholog-cloudinary-api-secret"
+  }
+}
