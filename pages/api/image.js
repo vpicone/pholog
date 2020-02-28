@@ -10,12 +10,11 @@ const parse = req =>
         reject(err);
       }
 
-      let imageInput = Array.of(files.multipleFiles).flat();
+      const imageInput = Array.of(files.multipleFiles).flat();
 
       const response = await Promise.all(
         imageInput.map(({ path, name }) =>
           upload(path, { upload_preset: "pholog-default" }).catch(error => {
-            console.log(error);
             return { error: { name, message: error.message } };
           })
         )
