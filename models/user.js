@@ -4,6 +4,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   name: String,
+  updatedAt: Date,
+  picture: String,
   sub: {
     type: String,
     unique: true,

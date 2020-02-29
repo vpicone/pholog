@@ -1,4 +1,4 @@
 {
   "extends": ["wesbos"],
-  "rules": { "no-console": 1 }
+  "rules": { "no-console": 1, "react/prop-types": 0 }
 }

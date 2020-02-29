@@ -13,7 +13,12 @@ const Image = ({ src, metadata, error }) => {
   const { ISO, FNumber, ShutterSpeedValue } = metadata;
   return (
     <div>
-      <img loading="lazy" style={{ width: '800px' }} src={src} />
+      <img
+        alt="test-alt?"
+        loading="lazy"
+        style={{ width: '800px' }}
+        src={src}
+      />
       <p>
         iso: {ISO} | f-number {FNumber} | Shutter speed {ShutterSpeedValue}
       </p>
@@ -26,7 +31,7 @@ const Profile = ({ user }) => {
   const [images, setImages] = useState([]);
   const [folders, setFolders] = useState([]);
 
-  const { given_name: givenName, sub } = user;
+  const { name, sub, picture, updated_at: updatedAt } = user;
 
   useEffect(() => {
     async function fetchUser() {
@@ -35,14 +40,13 @@ const Profile = ({ user }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sub, name: givenName }),
+        body: JSON.stringify({ sub, name, picture, updatedAt }),
       });
-      console.log(res);
       const resultObject = await res.json();
       console.log({ resultObject });
     }
     fetchUser();
-  }, [givenName, sub]);
+  }, [name, picture, sub, updatedAt]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -60,7 +64,7 @@ const Profile = ({ user }) => {
 
   return (
     <div>
-      <h1>Hello, {givenName} create a new Session!</h1>
+      <h1>Hello, {name} create a new Session!</h1>
       <form ref={formRef} onSubmit={handleSubmit}>
         <div>
           Text field title: <input type="text" name="title" />
@@ -77,8 +81,8 @@ const Profile = ({ user }) => {
         <button type="submit">submit</button>
       </form>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {images.map(({ secure_url, image_metadata, error }) => (
-          <Image src={secure_url} metadata={image_metadata} error={error} />
+        {images.map(({ secure_url: src, image_metadata: metadata, error }) => (
+          <Image src={src} metadata={metadata} error={error} />
         ))}
       </div>
       <ul>
