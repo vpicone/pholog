@@ -1,10 +1,9 @@
 import formidable from "formidable";
 import { upload } from "../../util/cloudinary";
 
-const form = formidable({ multiples: true });
-
 const parse = req =>
   new Promise((resolve, reject) => {
+    const form = formidable({ multiples: true });
     form.parse(req, async (err, fields, files) => {
       if (err) {
         reject(err);
