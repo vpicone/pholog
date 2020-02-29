@@ -1,5 +1,5 @@
-import formidable from "formidable";
-import { upload } from "../../util/cloudinary";
+import formidable from 'formidable';
+import { upload } from '../../util/cloudinary';
 
 const parse = req =>
   new Promise((resolve, reject) => {
@@ -13,8 +13,8 @@ const parse = req =>
       const response = await Promise.all(
         imageInput.map(({ path, name }) =>
           upload(path, {
-            upload_preset: "pholog-default",
-            folder: `/photocritique/${sub}/${title}`
+            upload_preset: 'pholog-default',
+            folder: `/photocritique/${sub}/${title}`,
           }).catch(error => {
             console.error(error);
             return { error: { name, message: error.message } };
@@ -39,6 +39,6 @@ export default async (req, res) => {
 
 export const config = {
   api: {
-    bodyParser: false
-  }
+    bodyParser: false,
+  },
 };

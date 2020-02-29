@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import auth0 from "../util/auth0";
+import React, { Component } from 'react';
+import auth0 from '../util/auth0';
 
 export default function withAuth(InnerComponent) {
   return class Authenticated extends Component {
@@ -7,7 +7,7 @@ export default function withAuth(InnerComponent) {
       const session = await auth0.getSession(req);
       if (!session || !session.user) {
         res.writeHead(302, {
-          Location: "/api/login"
+          Location: '/api/login',
         });
         res.end();
         return;
@@ -22,7 +22,9 @@ export default function withAuth(InnerComponent) {
 
     render() {
       return (
-        <div>{<InnerComponent {...this.props} user={this.props.user} />}</div>
+        <div>
+          <InnerComponent {...this.props} user={this.props.user} />
+        </div>
       );
     }
   };

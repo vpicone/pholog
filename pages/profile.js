@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import fetch from "isomorphic-unfetch";
-import withAuth from "../components/with-auth";
+import { useState, useRef, useEffect } from 'react';
+import fetch from 'isomorphic-unfetch';
+import withAuth from '../components/with-auth';
 
 const Image = ({ src, metadata, error }) => {
   if (error) {
@@ -13,7 +13,7 @@ const Image = ({ src, metadata, error }) => {
   const { ISO, FNumber, ShutterSpeedValue } = metadata;
   return (
     <div>
-      <img loading="lazy" style={{ width: "800px" }} src={src} />
+      <img loading="lazy" style={{ width: '800px' }} src={src} />
       <p>
         iso: {ISO} | f-number {FNumber} | Shutter speed {ShutterSpeedValue}
       </p>
@@ -31,28 +31,28 @@ const Profile = ({ user }) => {
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(`/api/user`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sub, name: givenName })
+        body: JSON.stringify({ sub, name: givenName }),
       });
       console.log(res);
-      let resultObject = await res.json();
+      const resultObject = await res.json();
       console.log({ resultObject });
     }
     fetchUser();
-  }, []);
+  }, [givenName, sub]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
-    formData.append("sub", sub);
+    formData.append('sub', sub);
 
-    const response = await fetch("/api/image", {
-      method: "POST",
-      body: formData
+    const response = await fetch('/api/image', {
+      method: 'POST',
+      body: formData,
     });
 
     setImages(await response.json());
@@ -66,7 +66,7 @@ const Profile = ({ user }) => {
           Text field title: <input type="text" name="title" />
         </div>
         <div>
-          Files:{" "}
+          Files:{' '}
           <input
             type="file"
             name="multipleFiles"
@@ -76,7 +76,7 @@ const Profile = ({ user }) => {
         </div>
         <button type="submit">submit</button>
       </form>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         {images.map(({ secure_url, image_metadata, error }) => (
           <Image src={secure_url} metadata={image_metadata} error={error} />
         ))}

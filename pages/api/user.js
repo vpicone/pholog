@@ -1,5 +1,5 @@
-import "../../util/db";
-import User from "../../models/user";
+import '../../util/db';
+import User from '../../models/user';
 
 export default async function(req, res) {
   const { name, sub } = req.body;
