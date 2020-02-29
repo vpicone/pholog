@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import fetch from "isomorphic-unfetch";
 import withAuth from "../components/with-auth";
 
 const Image = ({ src, metadata, error }) => {
@@ -23,14 +24,24 @@ const Image = ({ src, metadata, error }) => {
 const Profile = ({ user }) => {
   const formRef = useRef();
   const [images, setImages] = useState([]);
+  const [folders, setFolders] = useState([]);
 
   const { given_name: givenName, sub } = user;
+
+  useEffect(() => {
+    async function fetchFolders() {
+      const res = await fetch(`/api/sessions/${sub}`);
+      let resultObject = await res.json();
+      setFolders(resultObject.folders);
+    }
+    fetchFolders();
+  }, []);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
-    formData.append("sub", user.sub);
+    formData.append("sub", sub);
 
     const response = await fetch("/api/image", {
       method: "POST",
@@ -63,6 +74,11 @@ const Profile = ({ user }) => {
           <Image src={secure_url} metadata={image_metadata} error={error} />
         ))}
       </div>
+      <ul>
+        {folders.map(folder => (
+          <li>{folder.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

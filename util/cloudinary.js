@@ -9,3 +9,4 @@ cloudinary.config({
 });
 
 export const upload = promisify(cloudinary.uploader.upload);
+export const subFolders = promisify(cloudinary.api.sub_folders);
