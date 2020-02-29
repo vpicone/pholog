@@ -25,41 +25,18 @@ const Home = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     const formData = new FormData(formRef.current);
-
     const response = await fetch("/api/image", {
       method: "POST",
       body: formData
     });
-
-    const json = await response.json();
-    console.log(json);
-    setImages(json);
+    setImages(await response.json());
   };
 
   return (
     <div>
-      <form ref={formRef} onSubmit={handleSubmit}>
-        {/* <div>
-          Text field title: <input type="text" name="title" />
-        </div> */}
-        <div>
-          File:{" "}
-          <input
-            type="file"
-            name="multipleFiles"
-            multiple
-            accept="image/*,.heic,.heif"
-          />
-        </div>
-        <button type="submit">submit</button>
-      </form>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        {images.map(({ secure_url, image_metadata, error }) => (
-          <Image src={secure_url} metadata={image_metadata} error={error} />
-        ))}
-      </div>
+      <a href="/api/login">Login</a>
+      <a href="/profile">Profile</a>
     </div>
   );
 };

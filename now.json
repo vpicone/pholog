@@ -1,7 +1,16 @@
 {
-  "env": {
-    "CLOUD_NAME": "@pholog-cloudinary-cloud-name",
-    "CLOUDINARY_API_KEY": "@pholog-cloudinary-api-key",
-    "CLOUDINARY_API_SECRET": "@pholog-cloudinary-api-secret"
+  "build": {
+    "env": {
+      "CLOUD_NAME": "@pholog-cloudinary-cloud-name",
+      "CLOUDINARY_API_KEY": "@pholog-cloudinary-api-key",
+      "CLOUDINARY_API_SECRET": "@pholog-cloudinary-api-secret",
+      "AUTH0_DOMAIN": "vpicone.auth0.com",
+      "AUTH0_CLIENT_ID": "V8Br3KIScsphngvSu9TLg67FpWcC277e",
+      "AUTH0_CLIENT_SECRET": "@pholog-auth0-client-secret",
+      "REDIRECT_URI": "https://photocritique.now.sh/api/callback",
+      "POST_LOGOUT_REDIRECT_URI": "https://photocritique.now.sh/",
+      "SESSION_COOKIE_SECRET": "@pholog-session-cookie-secret",
+      "SESSION_COOKIE_LIFETIME": "7200"
+    }
   }
 }
