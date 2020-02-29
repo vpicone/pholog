@@ -29,12 +29,19 @@ const Profile = ({ user }) => {
   const { given_name: givenName, sub } = user;
 
   useEffect(() => {
-    async function fetchFolders() {
-      const res = await fetch(`/api/sessions/${sub}`);
+    async function fetchUser() {
+      const res = await fetch(`/api/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ sub, name: givenName })
+      });
+      console.log(res);
       let resultObject = await res.json();
-      setFolders(resultObject.folders);
+      console.log({ resultObject });
     }
-    fetchFolders();
+    fetchUser();
   }, []);
 
   const handleSubmit = async e => {
@@ -79,6 +86,7 @@ const Profile = ({ user }) => {
           <li>{folder.name}</li>
         ))}
       </ul>
+      <a href="/api/logout">logout</a>
     </div>
   );
 };

@@ -37,6 +37,7 @@ const Home = () => {
     <div>
       <a href="/api/login">Login</a>
       <a href="/profile">Profile</a>
+      <a href="/api/logout">logout</a>
     </div>
   );
 };

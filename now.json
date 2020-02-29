@@ -10,7 +10,8 @@
       "REDIRECT_URI": "https://photocritique.now.sh/api/callback",
       "POST_LOGOUT_REDIRECT_URI": "https://photocritique.now.sh/",
       "SESSION_COOKIE_SECRET": "@pholog-session-cookie-secret",
-      "SESSION_COOKIE_LIFETIME": "7200"
+      "SESSION_COOKIE_LIFETIME": "7200",
+      "DATABASE_CONNECT_URI": "@pholog-database-connect-uri"
     }
   }
 }
