@@ -26,10 +26,10 @@ const Image = ({ src, metadata, error }) => {
   );
 };
 
-const Profile = ({ user }) => {
+const Profile = ({ user: userAuthData }) => {
   const formRef = useRef();
   const [images, setImages] = useState([]);
-  const [folders, setFolders] = useState([]);
+  const [user, setUser] = useState(userAuthData);
 
   const { name, sub, picture, updated_at: updatedAt } = user;
 
@@ -42,17 +42,17 @@ const Profile = ({ user }) => {
         },
         body: JSON.stringify({ sub, name, picture, updatedAt }),
       });
-      const resultObject = await res.json();
-      console.log({ resultObject });
+      const userData = await res.json();
+      setUser({ ...userAuthData, ...userData });
     }
     fetchUser();
-  }, [name, picture, sub, updatedAt]);
+  }, [name, picture, sub, updatedAt, userAuthData]);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
-    formData.append('sub', sub);
+    formData.append('userId', user._id);
 
     const response = await fetch('/api/image', {
       method: 'POST',
@@ -85,11 +85,6 @@ const Profile = ({ user }) => {
           <Image src={src} metadata={metadata} error={error} />
         ))}
       </div>
-      <ul>
-        {folders.map(folder => (
-          <li>{folder.name}</li>
-        ))}
-      </ul>
       <a href="/api/logout">logout</a>
     </div>
   );

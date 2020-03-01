@@ -1,4 +1,7 @@
 {
   "extends": ["wesbos"],
-  "rules": { "no-console": 1, "react/prop-types": 0 }
+  "rules": {
+    "no-console": [2, { "allow": ["warn", "error"] }],
+    "react/prop-types": 0
+  }
 }

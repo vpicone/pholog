@@ -1,5 +1,7 @@
 import formidable from 'formidable';
 import { upload } from '../../util/cloudinary';
+import Session from '../../models/session';
+import User from '../../models/user';
 
 const parse = req =>
   new Promise((resolve, reject) => {
@@ -8,13 +10,20 @@ const parse = req =>
       if (err) {
         reject(err);
       }
-      const { sub, title } = fields;
+
+      const { userId, title } = fields;
+
+      const CurrentUser = await User.findById(userId).exec();
+
+      const NewSession = new Session({ title });
+
       const imageInput = Array.of(files.multipleFiles).flat();
-      const response = await Promise.all(
+
+      const uploadedImages = await Promise.all(
         imageInput.map(({ path, name }) =>
           upload(path, {
             upload_preset: 'pholog-default',
-            folder: `/photocritique/${sub}/${title}`,
+            folder: `/photocritique/${userId}/${NewSession.id}`,
           }).catch(error => {
             console.error(error);
             return { error: { name, message: error.message } };
@@ -22,7 +31,13 @@ const parse = req =>
         )
       );
 
-      resolve(response);
+      NewSession.set('images', uploadedImages);
+
+      CurrentUser.sessions.push(NewSession);
+
+      CurrentUser.save();
+
+      resolve(uploadedImages);
     });
   });
 
