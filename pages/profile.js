@@ -54,7 +54,7 @@ const Profile = ({ user: userAuthData }) => {
     const formData = new FormData(formRef.current);
     formData.append('userId', user._id);
 
-    const response = await fetch('/api/image', {
+    const response = await fetch('/api/session', {
       method: 'POST',
       body: formData,
     });
